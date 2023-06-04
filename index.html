@@ -69,21 +69,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id="log-btn">Console Log</button>
+      <button id="error-btn">Console Error</button>
+      <button id="count-btn">Console Count</button>
+      <button id="warn-btn">Console Warn</button>
+      <button id="assert-btn">Console Assert</button>
+      <button id="clear-btn">Console Clear</button>
+      <button id="dir-btn">Console Dir</button>
+      <button id="dirxml-btn">Console dirxml</button>
+      <button id="grp-start-btn">Console Group Start</button>
+      <button id="grp-end-btn">Console Group End</button>
+      <button id="table-btn">Console Table</button>
+      <button id="timer-start-btn">Start Timer</button>
+      <button id="timer-end-btn">End Timer</button>
+      <button id="trace-btn">Console Trace</button>
+      <button id="global-err-btn">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -100,8 +100,60 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+    for (let i = 0; i < errorBtns.length; i++) {
+      const btn = errorBtns[i];
+
+      let consoleFunc;
+
+      if (btn.id === "log-btn") consoleFunc = () => { console.log("This is a console.log"); }
+      else if (btn.id === "error-btn") consoleFunc = () => { console.error("This is a console.error"); }
+      else if (btn.id === "count-btn") consoleFunc = () => {
+        for (let j = 0; j < 3; j++) {
+          console.count("This is a console.count");
+        }
+      }
+      else if (btn.id === "warn-btn") consoleFunc = () => { console.warn("This is a console.warn"); }
+      else if (btn.id === "assert-btn") consoleFunc = () => {
+        console.log('Asserting 1 == "1":');
+        console.assert(1 == "1", '1 == "1" is not true');
+        console.log('Asserting 1 === "1"');
+        console.assert(1 === "1", '1 === "1" is not true');
+      }
+      else if (btn.id === "clear-btn") consoleFunc = () => { console.clear(); }
+      else if (btn.id === "dir-btn") consoleFunc = () => { console.dir(localStorage); }
+      else if (btn.id === "dirxml-btn") consoleFunc = () => { console.dirxml(btn); }
+      else if (btn.id === "grp-start-btn") consoleFunc = () => {
+        console.group();
+        console.log("New group has been started.")
+      }
+      else if (btn.id === "grp-end-btn") consoleFunc = () => {
+        console.groupEnd();
+        console.log("Group has been ended.")
+      }
+      else if (btn.id === "table-btn") consoleFunc = () => {
+        console.table([["*", "*", "*"], ["*", "*"], ["*", , "*"]]);
+      }
+      else if (btn.id === "timer-start-btn") consoleFunc = () => {
+        console.time();
+        console.log("Time has been started.")
+      }
+      else if (btn.id === "timer-end-btn") consoleFunc = () => {
+        console.timeEnd();
+        console.log("Timer has been ended.")
+      }
+      else if (btn.id === "trace-btn") consoleFunc = () => { console.trace(); }
+      else if (btn.id === "global-err-btn") consoleFunc = () => { throw new Error("This is a global error."); }
+      else { console.log("Not a valid button."); }
+
+      btn.addEventListener('click', consoleFunc);
+    }
+
+    // try {
+    //   const fetchUrl = "http://cse191.ucsd.edu/api10/health";
+    //   awa
+    // } catch (e) {
+
+    // }
   </script>
 </body>
 

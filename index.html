@@ -87,6 +87,14 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({
+      token: "e3960d64033f4b38854e31e53cdc568c"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -148,12 +156,36 @@
       btn.addEventListener('click', consoleFunc);
     }
 
-    // try {
-    //   const fetchUrl = "http://cse191.ucsd.edu/api10/health";
-    //   awa
-    // } catch (e) {
+    class InvalidArgumentsError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "InvalidArgumentsError";
+      }
+    }
 
-    // }
+    // finds the Euclidean distance between 2 points
+    function distance(x1, y1, x2, y2) {
+      try {
+        const argNames = ["x1", "y1", "x2", "y2"];
+        const args = [x1, x2, y1, y2]
+
+        for (let i = 0; i < argNames.length; i++) {
+          if (typeof args[i] !== "number") {
+            throw new InvalidArgumentsError(`Argument ${argNames[i]} was expected to be of type number but type ${typeof args[i]} was found instead.`)
+          }
+        }
+
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2))
+      } catch (err) {
+        console.error("An invalid argument was passed into the distance function. Please check your inputs and try again!")
+      }
+    }
+
+    console.log(distance("1", 2, 3, 4));
+    console.log(distance(1, 2, 3, 4));
+
+    TrackJS.track('Testing TrackJS!');
+
   </script>
 </body>
 
